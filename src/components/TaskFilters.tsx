@@ -16,6 +16,7 @@ interface TaskFiltersProps {
   onStatusChange: (value: TaskStatus | 'All') => void;
   onPriorityChange: (value: TaskPriority | 'All') => void;
   onSortChange: (field: 'title' | 'priority' | 'dueDate') => void;
+  onSortOrderChange: (order: 'asc' | 'desc') => void;
   onClearFilters: () => void;
 }
 
@@ -29,6 +30,7 @@ const TaskFilters: React.FC<TaskFiltersProps> = ({
   onStatusChange,
   onPriorityChange,
   onSortChange,
+  onSortOrderChange,
   onClearFilters,
 }) => {
   const statusOptions = [
@@ -82,6 +84,13 @@ const TaskFilters: React.FC<TaskFiltersProps> = ({
           options={sortOptions}
           className="w-full md:w-48"
         />
+
+        <Button
+          onClick={() => onSortOrderChange(sortOrder === 'asc' ? 'desc' : 'asc')}
+          className="bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white"
+        >
+          {sortOrder === 'asc' ? '↑' : '↓'}
+        </Button>
         
         <Button
           onClick={onClearFilters}

@@ -302,6 +302,7 @@ const TaskBoard: React.FC = () => {
           onStatusChange={setStatusFilter}
           onPriorityChange={setPriorityFilter}
           onSortChange={handleSort}
+          onSortOrderChange={setSortOrder}
           onClearFilters={clearFilters}
         />
 
