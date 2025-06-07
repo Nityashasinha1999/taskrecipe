@@ -48,9 +48,9 @@ const TaskFilters: React.FC<TaskFiltersProps> = ({
   ];
 
   const sortOptions = [
-    { value: 'title', label: 'Title' },
-    { value: 'priority', label: 'Priority' },
-    { value: 'dueDate', label: 'Due Date' },
+    { value: 'title', label: 'Sort by Title' },
+    { value: 'priority', label: 'Sort by Priority' },
+    { value: 'dueDate', label: 'Sort by Due Date' },
   ];
 
   return (
