@@ -7,6 +7,7 @@ import { useTaskStore, TaskStatus, TaskPriority } from '../store/taskStore';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
+import { X } from 'lucide-react';
 
 const taskSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -73,10 +74,20 @@ const TaskForm: React.FC<TaskFormProps> = ({ onClose, task }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-slate-800 p-6 rounded-lg w-full max-w-md">
-        <h2 className="text-xl font-bold text-white mb-4">
-          {task ? 'Edit Task' : 'Create New Task'}
-        </h2>
+      <div className="bg-slate-800 rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-xl font-semibold text-white">
+            {task ? 'Edit Task' : 'Create New Task'}
+          </h2>
+          <Button
+            onClick={onClose}
+            className="text-slate-400 hover:text-white"
+            variant="ghost"
+          >
+            <X className="h-5 w-5" />
+          </Button>
+        </div>
+
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
             <label htmlFor="title" className="text-sm font-medium text-white">
