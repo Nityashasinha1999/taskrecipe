@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Task Manager
+A lightweight task management app with recipe collection features.
+Features
 
-## Getting Started
+Task Management with Drag and Drop: Easily manage tasks with an intuitive drag-and-drop interface.
+Recipe Browsing: Explore recipes fetched from TheMealDB API.
+Dark Theme: Enjoy a sleek, consistent dark theme across the app.
 
-First, run the development server:
+Setup
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Install dependencies:npm install
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Run the development server:npm run dev
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+Open http://localhost:3000 in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+Project Structure
+src/
+├── app/          # Pages
+├── components/   # React components
+├── store/        # State management
+└── providers/    # React providers
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Features in Detail
+Task Board
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Drag and Drop: Move tasks between statuses (To Do, In Progress, Done).
+Filtering: Filter tasks by status or priority (High, Medium, Low).
+Search: Search tasks by title or description in real-time.
+Sorting: Sort tasks by title, priority, or due date.
+Responsive Design: Works seamlessly on desktop and mobile.
 
-## Deploy on Vercel
+Recipe Collection
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+API Integration: Pulls recipes from TheMealDB API.
+Search: Find recipes by name.
+Detailed View: View ingredients and instructions for each recipe.
+Responsive Layout: Adapts to various screen sizes.
+Dark Theme: Matches the app’s dark theme for a unified look.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
