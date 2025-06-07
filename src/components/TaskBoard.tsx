@@ -164,8 +164,8 @@ const TaskBoard: React.FC = () => {
   };
 
   const filteredTasks = tasks.filter((task) => {
-    const matchesSearch = task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      task.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = (task.title?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+      (task.description?.toLowerCase() || '').includes(searchQuery.toLowerCase());
     const matchesStatus = statusFilter === 'All' || task.status === statusFilter;
     const matchesPriority = priorityFilter === 'All' || task.priority === priorityFilter;
     return matchesSearch && matchesStatus && matchesPriority;

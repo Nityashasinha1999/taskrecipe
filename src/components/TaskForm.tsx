@@ -34,6 +34,7 @@ interface TaskFormProps {
     priority: TaskPriority;
     dueDate?: string;
     assignee?: string;
+    createdAt: string;
   };
 }
 
@@ -50,25 +51,28 @@ const TaskForm: React.FC<TaskFormProps> = ({ onClose, task }) => {
       description: task?.description || '',
       status: task?.status || 'To Do',
       priority: task?.priority || 'Medium',
-      dueDate: task?.dueDate || '',
+      dueDate: task?.dueDate ? new Date(task.dueDate).toISOString().split('T')[0] : '',
       assignee: task?.assignee || '',
     },
   });
 
   const onSubmit = async (data: TaskFormData) => {
     try {
+      const taskData = {
+        ...data,
+        createdAt: task?.createdAt || new Date().toISOString(),
+        dueDate: data.dueDate ? new Date(data.dueDate).toISOString() : undefined,
+      };
+
       if (task) {
-        useTaskStore.getState().updateTask(task.id, data);
+        await useTaskStore.getState().updateTask(task.id, taskData);
       } else {
-        useTaskStore.getState().addTask({
-          ...data,
-          createdAt: new Date().toISOString(),
-        });
+        await useTaskStore.getState().addTask(taskData);
       }
       reset();
       onClose();
     } catch (error) {
-      console.error('Failed to save task:', error);
+      console.error('Error saving task:', error);
     }
   };
 

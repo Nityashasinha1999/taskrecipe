@@ -45,10 +45,17 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
   addTask: async (task) => {
     set({ isLoading: true, error: null });
     try {
+      const taskData = {
+        ...task,
+        id: Date.now().toString(),
+        createdAt: new Date().toISOString(),
+        dueDate: task.dueDate ? new Date(task.dueDate).toISOString() : undefined,
+      };
+
       const response = await fetch('/api/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(task),
+        body: JSON.stringify(taskData),
       });
       if (!response.ok) throw new Error('Failed to create task');
       const newTask = await response.json();
@@ -64,12 +71,18 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
   updateTask: async (id, updates) => {
     set({ isLoading: true, error: null });
     try {
+      const taskData = {
+        ...updates,
+        dueDate: updates.dueDate ? new Date(updates.dueDate).toISOString() : undefined,
+      };
+debugger
       const response = await fetch(`/api/tasks/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updates),
+        body: JSON.stringify(taskData),
       });
-      if (!response.ok) throw new Error('Failed to update task');
+      debugger
+      // if (!response.ok) throw new Error('Failed to update task');
       const updatedTask = await response.json();
       set((state) => ({
         tasks: state.tasks.map((task) =>
@@ -78,6 +91,7 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
         isLoading: false,
       }));
     } catch (error) {
+      console.error('Error updating task:', error);
       set({ error: 'Failed to update task', isLoading: false });
     }
   },
