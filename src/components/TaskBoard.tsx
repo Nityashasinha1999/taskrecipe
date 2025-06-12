@@ -23,58 +23,7 @@ import TaskCard from './TaskCard';
 import TaskForm from './TaskForm';
 import TaskFilters from './TaskFilters';
 import { Button } from './ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Input } from './ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import Link from 'next/link';
-
-interface StatusColumnProps {
-  status: TaskStatus;
-  tasks: Task[];
-  getStatusColor: (status: TaskStatus) => string;
-  getStatusTextColor: (status: TaskStatus) => string;
-}
-
-const StatusColumn: React.FC<StatusColumnProps> = ({
-  status,
-  tasks,
-  getStatusColor,
-  getStatusTextColor,
-}) => {
-  const { setNodeRef } = useDroppable({
-    id: `status-${status}`,
-    data: {
-      status,
-    },
-  });
-
-  return (
-    <Card className={getStatusColor(status)}>
-      <CardHeader>
-        <CardTitle className={getStatusTextColor(status)}>
-          {status}
-          <span className="ml-2 text-sm font-normal text-slate-400">
-            ({tasks.length})
-          </span>
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div ref={setNodeRef} className="min-h-[200px]">
-          <SortableContext
-            items={tasks.map((task) => task.id)}
-            strategy={verticalListSortingStrategy}
-          >
-            <div className="space-y-3">
-              {tasks.map((task) => (
-                <TaskCard key={task.id} task={task} />
-              ))}
-            </div>
-          </SortableContext>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
 
 type SortField = 'title' | 'priority' | 'dueDate';
 type SortOrder = 'asc' | 'desc';
@@ -207,11 +156,9 @@ const TaskBoard: React.FC = () => {
       const task = tasks.find(t => t.id === active.id);
       
       if (task) {
-        // If dropping on a column
         if (statuses.includes(over.id as TaskStatus)) {
           updateTask(task.id, { status: over.id as TaskStatus });
         }
-        // If dropping on another task
         else {
           const overTask = tasks.find(t => t.id === over.id);
           if (overTask) {
@@ -223,32 +170,6 @@ const TaskBoard: React.FC = () => {
     
     setActiveId(null);
     setActiveTask(null);
-  };
-
-  const getStatusColor = (status: TaskStatus) => {
-    switch (status) {
-      case 'To Do':
-        return 'bg-slate-800 border-slate-700';
-      case 'In Progress':
-        return 'bg-slate-800 border-slate-700';
-      case 'Done':
-        return 'bg-slate-800 border-slate-700';
-      default:
-        return 'bg-slate-800 border-slate-700';
-    }
-  };
-
-  const getStatusTextColor = (status: TaskStatus) => {
-    switch (status) {
-      case 'To Do':
-        return 'text-blue-400';
-      case 'In Progress':
-        return 'text-yellow-400';
-      case 'Done':
-        return 'text-green-400';
-      default:
-        return 'text-slate-400';
-    }
   };
 
   if (isLoading) {
